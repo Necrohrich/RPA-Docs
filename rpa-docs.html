@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RolePlayAsylum — Документация</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0f14;
+    --surface:   #13161e;
+    --surface2:  #1a1e2a;
+    --border:    #272c3d;
+    --accent:    #c9a84c;
+    --accent2:   #7b68ee;
+    --accent3:   #3fba8f;
+    --danger:    #e05a5a;
+    --text:      #e8e2d4;
+    --muted:     #8a8599;
+    --code-bg:   #0a0c10;
+    --note-bg:   #1a1c0f;
+    --warn-bg:   #1c1208;
+    --tip-bg:    #0d1a16;
+    --scroll-w:  6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar { width: var(--scroll-w); }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+  .sidebar-logo p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .sidebar-search {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-search input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .sidebar-search input:focus { border-color: var(--accent); }
+  .sidebar-search input::placeholder { color: var(--muted); }
+
+  nav { padding: 8px 0 24px; flex: 1; }
+
+  .nav-section {
+    padding: 14px 16px 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: .7;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14.5px;
+    transition: color .2s, background .2s, padding-left .2s;
+    border-left: 2px solid transparent;
+  }
+  nav a:hover { color: var(--text); background: var(--surface2); padding-left: 26px; }
+  nav a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(201,168,76,.06); }
+  nav a .icon { font-size: 13px; opacity: .7; width: 18px; text-align: center; }
+
+  nav .sub-link { padding-left: 40px; font-size: 13.5px; }
+  nav .sub-link:hover { padding-left: 46px; }
+
+  /* ─── MAIN ─── */
+  main {
+    flex: 1;
+    max-width: 860px;
+    padding: 56px 64px;
+    margin: 0 auto;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    text-align: center;
+    padding: 48px 0 64px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,.12);
+    border: 1px solid rgba(201,168,76,.3);
+    color: var(--accent);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero h2 span { color: var(--accent); }
+  .hero p {
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  /* ─── SECTION ─── */
+  .doc-section {
+    margin-bottom: 80px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.25);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .section-header .section-num {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 36px 0 14px;
+    letter-spacing: .5px;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 24px 0 10px;
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── CALLOUTS ─── */
+  .note, .warning, .tip, .danger-box {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    border-left: 3px solid;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .note { background: var(--note-bg); border-color: var(--accent); }
+  .note::before { content: '📌 Примечание — '; font-weight: 600; color: var(--accent); }
+  .warning { background: var(--warn-bg); border-color: #e09a2a; }
+  .warning::before { content: '⚠️ Важно — '; font-weight: 600; color: #e09a2a; }
+  .tip { background: var(--tip-bg); border-color: var(--accent3); }
+  .tip::before { content: '💡 Совет — '; font-weight: 600; color: var(--accent3); }
+  .danger-box { background: rgba(224,90,90,.07); border-color: var(--danger); }
+  .danger-box::before { content: '🚫 Ограничение — '; font-weight: 600; color: var(--danger); }
+
+  /* ─── MEDIA PLACEHOLDER ─── */
+  .media-placeholder {
+    background: var(--surface2);
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    margin: 24px 0;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 15px;
+  }
+  .media-placeholder .media-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+  .media-placeholder strong { color: var(--accent); font-style: normal; }
+
+  /* ─── COMMAND ─── */
+  .cmd-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    transition: border-color .2s;
+  }
+  .cmd-card:hover { border-color: rgba(201,168,76,.35); }
+  .cmd-name {
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    color: var(--accent2);
+    background: rgba(123,104,238,.1);
+    padding: 3px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .cmd-desc { color: var(--text); font-size: 16px; margin: 0; }
+  .cmd-access {
+    display: inline-block;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: .5px;
+  }
+  .access-all { background: rgba(63,186,143,.12); color: var(--accent3); border: 1px solid rgba(63,186,143,.25); }
+  .access-support { background: rgba(123,104,238,.12); color: #a99cf0; border: 1px solid rgba(123,104,238,.25); }
+  .access-mod { background: rgba(201,168,76,.12); color: var(--accent); border: 1px solid rgba(201,168,76,.25); }
+  .access-admin { background: rgba(224,90,90,.12); color: #f09090; border: 1px solid rgba(224,90,90,.25); }
+
+  /* ─── STEPS ─── */
+  .steps { counter-reset: step; margin: 20px 0; }
+  .step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: rgba(201,168,76,.12);
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+  .step-num::before { content: counter(step); }
+  .step-body { flex: 1; }
+
+  /* ─── TABLE ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+  }
+  th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    color: var(--text);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #a8d8b8;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ─── GRID ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .mini-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+  }
+  .mini-card .mc-icon { font-size: 26px; margin-bottom: 8px; display: block; }
+  .mini-card .mc-title { font-family: 'Cinzel', serif; font-size: 13px; color: var(--accent); margin-bottom: 6px; }
+  .mini-card .mc-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* ─── RATING TABLE ─── */
+  .rating-row td:first-child { font-size: 20px; }
+
+  /* ─── TOC PROGRESS ─── */
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 999;
+    transition: width .1s;
+    width: 0%;
+  }
+
+  /* ─── BACK TO TOP ─── */
+  #back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 42px;
+    height: 42px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .3s, border-color .2s;
+    font-size: 18px;
+    color: var(--muted);
+    z-index: 200;
+  }
+  #back-top.visible { opacity: 1; }
+  #back-top:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    main { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <h1>RolePlay<br>Asylum</h1>
+    <p>Документация платформы</p>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="search-input" placeholder="Поиск по документации…">
+  </div>
+  <nav id="nav">
+    <div class="nav-section">Введение</div>
+    <a href="#intro" class="icon">🏰 <span class="icon">⚔️</span> Что такое RPA</a>
+    <a href="#roles">🎭 Роли и доступ</a>
+
+    <div class="nav-section">Для игроков</div>
+    <a href="#registration">📝 Регистрация</a>
+    <a href="#profile">👤 Профиль</a>
+    <a href="#character">🧙 Персонажи</a>
+    <a href="#join-game">🗺️ Вступление в игру</a>
+    <a href="#gameplay">🎲 В игре</a>
+    <a href="#reviews">📋 Отзывы</a>
+    <a href="#roleplay">🎤 Ролевые сообщения</a>
+
+    <div class="nav-section">Для мастеров</div>
+    <a href="#gm-game">⚔️ Управление игрой</a>
+    <a href="#sessions">📅 Сессии</a>
+    <a href="#attendance">✅ Отметка присутствия</a>
+    <a href="#gm-reviews">📊 Статистика отзывов</a>
+
+    <div class="nav-section">Для администраторов</div>
+    <a href="#admin-roles">🛡️ Роли персонала</a>
+    <a href="#admin-game-systems">⚙️ Игровые системы</a>
+    <a href="#admin-moderation">🔧 Модерация</a>
+    <a href="#admin-guild">🏠 Настройки сервера</a>
+
+    <div class="nav-section">Справочник</div>
+    <a href="#commands">📚 Все команды</a>
+    <a href="#limits">🚧 Ограничения</a>
+    <a href="#faq">❓ Частые вопросы</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Официальная документация</div>
+    <h2>RolePlay<span>Asylum</span></h2>
+    <p>Полное руководство по платформе — от первого входа до управления сессиями</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 1 — ВВЕДЕНИЕ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="intro">
+    <div class="section-header">
+      <div class="section-icon">🏰</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 01</span>
+        <h2>Что такое RolePlayAsylum</h2>
+      </div>
+    </div>
+
+    <p>RolePlayAsylum — это платформа для организации настольных ролевых игр внутри Discord-сервера. Она помогает мастерам и игрокам не просто общаться в чатах, а вести структурированный игровой процесс: создавать персонажей, планировать и проводить сессии, отслеживать состав партии и оставлять отзывы.</p>
+
+    <p>Вся работа ведётся через Discord-бота с кнопками и меню — никакого программирования или специальных знаний не требуется.</p>
+
+    <div class="card-grid">
+      <div class="mini-card">
+        <span class="mc-icon">🎲</span>
+        <div class="mc-title">Игры</div>
+        <div class="mc-text">Создавайте игры, набирайте игроков и управляйте составом</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">🧙</span>
+        <div class="mc-title">Персонажи</div>
+        <div class="mc-text">Регистрируйте и привязывайте персонажей к конкретным играм</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">📅</span>
+        <div class="mc-title">Сессии</div>
+        <div class="mc-text">Discord-события автоматически превращаются в сессии</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">📋</span>
+        <div class="mc-title">Отзывы</div>
+        <div class="mc-text">Игроки оценивают каждую сессию, статистика копится автоматически</div>
+      </div>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">🎬</span>
+      <strong>[ВИДЕО: Общий обзор платформы — 2–3 минуты]</strong><br>
+      Рекомендуется записать короткое видео, показывающее путь от регистрации до участия в первой сессии.
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 2 — РОЛИ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="roles">
+    <div class="section-header">
+      <div class="section-icon">🎭</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 02</span>
+        <h2>Роли и уровни доступа</h2>
+      </div>
+    </div>
+
+    <p>На платформе существует два типа ролей: <strong>игровые</strong> (кем вы являетесь в конкретной игре) и <strong>платформенные</strong> (права внутри системы в целом).</p>
+
+    <h3>Игровые роли</h3>
+    <table>
+      <tr><th>Роль</th><th>Кто это</th><th>Что может делать</th></tr>
+      <tr><td>🎭 Игрок</td><td>Участник игры</td><td>Управляет своим персонажем, участвует в сессиях, оставляет отзывы</td></tr>
+      <tr><td>👑 Мастер (GM)</td><td>Ведущий игры</td><td>Одобряет заявки игроков, отмечает присутствие, видит статистику</td></tr>
+      <tr><td>✍️ Автор игры</td><td>Создатель игры</td><td>Полное управление игрой: настройки, удаление игроков, управление персонажами</td></tr>
+    </table>
+
+    <div class="note">Автор игры и мастер — разные роли. Автор создал игру, мастер её ведёт. Один человек может совмещать обе роли.</div>
+
+    <h3>Платформенные роли (персонал сервера)</h3>
+    <table>
+      <tr><th>Роль</th><th>Уровень</th><th>Назначение</th></tr>
+      <tr><td><span class="cmd-access access-all">Пользователь</span></td><td>По умолчанию</td><td>Игрок или мастер — стандартные права</td></tr>
+      <tr><td><span class="cmd-access access-support">Support</span></td><td>Поддержка</td><td>Просмотр данных, публикация отзывов и сессий, просмотр игровых систем</td></tr>
+      <tr><td><span class="cmd-access access-mod">Moderator</span></td><td>Модератор</td><td>Всё от Support + отмена/инвалидация сессий, восстановление объектов</td></tr>
+      <tr><td><span class="cmd-access access-admin">Superadmin</span></td><td>Администратор</td><td>Полный доступ: управление игровыми системами, ролями пользователей, удаление данных</td></tr>
+    </table>
+
+    <div class="note">Платформенные роли назначаются только через команду <code>/user update_role</code> и доступны исключительно Superadmin.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 3 — РЕГИСТРАЦИЯ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="registration">
+    <div class="section-header">
+      <div class="section-icon">📝</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 03</span>
+        <h2>Регистрация и вход</h2>
+      </div>
+    </div>
+
+    <p>Прежде чем пользоваться платформой, нужно создать аккаунт. Всё происходит прямо в Discord через специальное меню.</p>
+
+    <h3>Как зарегистрироваться</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Найдите сообщение с кнопкой <strong>«Register»</strong> в специальном канале сервера. Нажмите её.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">В появившемся окне введите: <strong>логин</strong> (латинские буквы, цифры, знак подчёркивания, 3–30 символов), <strong>email</strong> и <strong>пароль</strong> (минимум 8 символов, обязательно: заглавная буква, строчная, цифра и один из символов <code>@$!%*?&</code>).</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Повторите пароль для подтверждения и нажмите отправить. Ваш Discord-аккаунт автоматически привяжется к профилю.</div>
+      </div>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Окно регистрации с заполненными полями]</strong>
+    </div>
+
+    <h3>Как войти</h3>
+    <p>Если вы уже зарегистрированы, нажмите кнопку <strong>«Login»</strong> в том же меню. Введите email и пароль. После успешного входа ваш Discord-аккаунт будет связан с профилем — в следующий раз дополнительный вход не понадобится.</p>
+
+    <div class="tip">Если вы заходите с нового Discord-аккаунта, он автоматически добавится как «дополнительный» к вашему профилю — при условии, что основной уже был привязан.</div>
+
+    <div class="warning">Пароль должен содержать хотя бы одну заглавную букву, одну строчную, цифру и специальный символ (<code>@$!%*?&</code>). Простые пароли вроде «password123» не подойдут.</div>
+
+    <h3>Просмотр своего профиля</h3>
+    <p>Нажмите кнопку <strong>«Me»</strong> в меню аутентификации — бот отправит вам личным сообщением карточку с вашими данными и набором кнопок для управления профилем.</p>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Карточка профиля с кнопками управления]</strong>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 4 — ПРОФИЛЬ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="profile">
+    <div class="section-header">
+      <div class="section-icon">👤</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 04</span>
+        <h2>Управление профилем</h2>
+      </div>
+    </div>
+
+    <p>Из карточки профиля (команда <code>/me</code> или кнопка «Me») доступны следующие действия:</p>
+
+    <table>
+      <tr><th>Кнопка</th><th>Что делает</th></tr>
+      <tr><td>🔄 Refresh</td><td>Обновляет карточку профиля до актуальных данных</td></tr>
+      <tr><td>🔑 Change Password</td><td>Смена пароля — нужно ввести старый и новый</td></tr>
+      <tr><td>📧 Attach Second Email</td><td>Привязать дополнительный email</td></tr>
+      <tr><td>🗑️ Reset Second Discord</td><td>Отвязать дополнительный Discord-аккаунт</td></tr>
+      <tr><td>🎲 Get My Games</td><td>Список игр, которые вы создали</td></tr>
+      <tr><td>🗺️ Get Participated Games</td><td>Список игр, в которых вы участвуете как игрок</td></tr>
+      <tr><td>🧙 Get My Characters</td><td>Список всех ваших персонажей</td></tr>
+    </table>
+
+    <div class="danger-box">Новый пароль не может совпадать со старым. Также он должен соответствовать тем же требованиям сложности, что и при регистрации.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 5 — ПЕРСОНАЖИ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="character">
+    <div class="section-header">
+      <div class="section-icon">🧙</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 05</span>
+        <h2>Персонажи</h2>
+      </div>
+    </div>
+
+    <p>Персонаж — это ваша игровая личность. Перед тем как войти в игру, вам нужно создать персонажа и привязать его к этой игре. Один игрок может иметь несколько персонажей, но в одну игру можно привязать только одного.</p>
+
+    <h3>Создание персонажа</h3>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Найдите меню персонажей (сообщение с кнопками <strong>Create / Update / Delete</strong>) и нажмите <strong>Create</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Выберите игровую систему из списка или нажмите <strong>Skip</strong>, чтобы пропустить. <br><em>Если вы знаете, в какую игру идёте — выбирайте систему сразу: она должна совпадать с системой игры.</em></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Введите имя персонажа и, при желании, ссылку на его аватар (начинается с <code>https://</code>).</div>
+      </div>
+    </div>
+
+    <div class="warning">Игровую систему персонажа можно установить только один раз. После сохранения изменить её нельзя. Если вы случайно выбрали не ту систему — удалите персонажа и создайте заново.</div>
+
+    <h3>Обновление персонажа</h3>
+    <p>Нажмите <strong>Update</strong> в меню персонажей. Система попросит вас выбрать персонажа, затем (при желании) сменить игровую систему — но только если она ещё не была установлена. После этого откроется окно, где можно изменить имя и аватар.</p>
+
+    <h3>Удаление персонажа</h3>
+    <p>Нажмите <strong>Delete</strong> и выберите персонажа из списка. Персонаж будет помечен как удалённый, но данные сохранятся в системе. Восстановить его может модератор.</p>
+
+    <div class="note">Если персонаж привязан к игре, при удалении он автоматически открепляется от неё.</div>
+
+    <h3>Стать персонажем в чате</h3>
+    <p>Команда <code>/character become</code> позволяет «надеть маску» персонажа: все ваши сообщения в текстовых каналах будут отправляться от имени персонажа с его именем и аватаром (через webhook). Чтобы снять маску — <code>/character leave</code>.</p>
+
+    <div class="media-placeholder">
+      <span class="media-icon">🎬</span>
+      <strong>[ВИДЕО: Как создать персонажа и отправить сообщение от его имени]</strong>
+    </div>
+
+    <div class="danger-box">Стикеры не поддерживаются при отправке от лица персонажа. Обычные сообщения и вложения работают нормально.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 6 — ВСТУПЛЕНИЕ В ИГРУ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="join-game">
+    <div class="section-header">
+      <div class="section-icon">🗺️</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 06</span>
+        <h2>Вступление в игру</h2>
+      </div>
+    </div>
+
+    <p>Чтобы попасть в игру, нужно получить приглашение или найти его в одном из каналов сервера, а затем подать заявку. Мастер (или автор игры) одобрит или отклонит её.</p>
+
+    <h3>Через приглашение</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Найдите в канале сообщение-приглашение с кнопкой <strong>✅ Принять</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Нажмите кнопку. Заявка автоматически отправится мастеру игры.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Дождитесь решения. Бот отправит вам личное сообщение — одобрено или отклонено.</div>
+      </div>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Пример сообщения-приглашения в канале]</strong>
+    </div>
+
+    <h3>Что происходит после одобрения</h3>
+    <p>Как только мастер одобрит вашу заявку, вы становитесь участником игры. Теперь вы можете привязать своего персонажа к этой игре и ждать начала сессии.</p>
+
+    <div class="warning">Чтобы привязать персонажа к игре, его игровая система должна совпадать с системой игры. Например, если игра ведётся по D&D 5e, персонаж тоже должен быть создан в системе D&D 5e.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 7 — В ИГРЕ (ИГРОК)
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="gameplay">
+    <div class="section-header">
+      <div class="section-icon">🎲</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 07</span>
+        <h2>Действия в игре (для игроков)</h2>
+      </div>
+    </div>
+
+    <p>После вступления в игру откройте меню игры кнопкой <strong>Open game</strong> в игровом меню. Здесь доступны все действия участника.</p>
+
+    <h3>Доступные кнопки</h3>
+    <table>
+      <tr><th>Кнопка</th><th>Что делает</th></tr>
+      <tr><td>👥 Players</td><td>Посмотреть список принятых игроков</td></tr>
+      <tr><td>➕ Character</td><td>Привязать своего персонажа к этой игре</td></tr>
+      <tr><td>👥 Player's characters</td><td>Посмотреть персонажей других игроков</td></tr>
+      <tr><td>❌ Detach character</td><td>Открепить своего персонажа от игры</td></tr>
+      <tr><td>🚫 Leave game</td><td>Покинуть игру</td></tr>
+    </table>
+
+    <div class="danger-box">Покидая игру, ваш персонаж автоматически откреплятся от неё. Вернуться в игру можно только через новое приглашение.</div>
+
+    <h3>Привязка персонажа</h3>
+    <p>Нажмите <strong>➕ Character</strong>, выберите персонажа из своего списка. Система проверит совместимость игровых систем. Если всё в порядке — персонаж будет добавлен в игру.</p>
+
+    <div class="note">В одну игру можно привязать только одного своего персонажа. Если хотите сменить — сначала открепите текущего через «Detach character».</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 8 — ОТЗЫВЫ (ИГРОК)
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="reviews">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 08</span>
+        <h2>Отзывы о сессиях</h2>
+      </div>
+    </div>
+
+    <p>После каждой завершённой сессии бот отправит вам (или в игровой канал) приглашение оставить отзыв. Отзывы помогают улучшать игру и дают мастеру обратную связь.</p>
+
+    <h3>Как заполнить отзыв</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">В сообщении-приглашении нажмите <strong>✅ Оставить отзыв</strong>. Откроется личная форма заполнения.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Выберите <strong>оценку</strong> нажатием одного из эмодзи: 😡 Плохо / 😕 Есть осадок / 😐 Нейтрально / 🙂 Хорошо / 🤩 Превосходно.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Нажмите <strong>💬 Комментарий</strong> и напишите свои впечатления от сессии (обязательно).</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">По желанию добавьте лучшие сцены, запомнившихся НИП и выберите лучшего игрока сессии.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Нажмите <strong>✅ Отправить публично</strong> или <strong>🎭 Отправить анонимно</strong>.</div>
+      </div>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Форма отзыва с заполненными полями]</strong>
+    </div>
+
+    <h3>Анонимность</h3>
+    <p>При публичной отправке ваше имя будет видно рядом с отзывом. При анонимной — только содержание, без указания автора. Это влияет только на отображение при публикации, модераторы всегда могут видеть автора.</p>
+
+    <h3>Ограничения по отзывам</h3>
+    <div class="danger-box">
+      Оставить отзыв можно только если вы были отмечены как присутствующий на сессии.
+      Если на сессии не было отметки присутствия (например, сессия запущена через сайт без этого шага),
+      достаточно просто быть принятым игроком игры.
+    </div>
+    <div class="danger-box">Автор игры не может оставлять отзывы — только игроки.</div>
+    <div class="warning">Отзыв нельзя изменить после отправки. Поле «Комментарий» и «Оценка» обязательны — без них кнопка отправки не сработает.</div>
+
+    <div class="note">У вас есть 60 минут с момента получения приглашения, чтобы заполнить отзыв. По истечении времени окно закрывается, а незаполненный отзыв отменяется автоматически.</div>
+
+    <h3>Как считается «справедливая оценка» игры</h3>
+    <p>Платформа не просто усредняет все оценки. Используется алгоритм, учитывающий число уникальных игроков, написавших отзывы:</p>
+
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2;">
+      <li>Чем больше разных игроков оставили отзывы — тем больше система «доверяет» итоговой оценке.</li>
+      <li>Если отзывов мало (например, только один игрок из десяти), оценка автоматически смещается к нейтральной — чтобы одна субъективная реакция не определяла впечатление от всей игры.</li>
+      <li>Рейтинг обновляется при каждом новом отзыве.</li>
+    </ul>
+
+    <div class="note">Шкала оценок: 😡 Плохо (0) → 😕 Есть осадок (1) → 😐 Нейтрально (2) → 🙂 Хорошо (3) → 🤩 Превосходно (4). Взвешенный балл от 0 до 4, затем переводится в один из этих лейблов.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 9 — РОЛЕВЫЕ СООБЩЕНИЯ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="roleplay">
+    <div class="section-header">
+      <div class="section-icon">🎤</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 09</span>
+        <h2>Ролевые сообщения</h2>
+      </div>
+    </div>
+
+    <p>Когда вы «надеваете маску» персонажа командой <code>/character become</code>, все ваши сообщения в каналах автоматически пересылаются от имени персонажа с его именем и аватаром. Ваше оригинальное сообщение при этом удаляется.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Введите <code>/character become</code> и выберите персонажа.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Пишите в любом текстовом канале как обычно — сообщения будут идти от имени персонажа.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Чтобы вернуться к своему имени, введите <code>/character leave</code>.</div>
+      </div>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Сравнение — обычное сообщение и сообщение от лица персонажа в чате]</strong>
+    </div>
+
+    <div class="danger-box">Стикеры нельзя отправлять от лица персонажа. Обычный текст и прикреплённые файлы/изображения работают без ограничений.</div>
+    <div class="warning">Если у бота нет прав на управление webhook-ами в канале, сообщение не будет переслано. Обратитесь к администратору сервера.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 10 — УПРАВЛЕНИЕ ИГРОЙ (МАСТЕР)
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="gm-game">
+    <div class="section-header">
+      <div class="section-icon">⚔️</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 10</span>
+        <h2>Управление игрой (для мастеров)</h2>
+      </div>
+    </div>
+
+    <p>Откройте игровое меню (сообщение с кнопками Create / Update / Delete / Settings) — здесь сосредоточено всё управление вашими играми.</p>
+
+    <h3>Создание игры</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Нажмите <strong>Create</strong> и выберите игровую систему (или пропустите этот шаг).</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Введите название игры (уникальное для вашего аккаунта).</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">При желании укажите Discord-ID мастера, роль сервера и основной канал игры. Эти поля необязательны, но значительно расширяют автоматизацию.</div>
+      </div>
+    </div>
+
+    <div class="note">Discord-ID — это числовой идентификатор пользователя, роли или канала. Чтобы его получить, включите «Режим разработчика» в настройках Discord, затем кликните правой кнопкой на нужном объекте и выберите «Копировать ID».</div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Как включить режим разработчика в Discord]</strong>
+    </div>
+
+    <h3>Настройки игры (кнопка Settings)</h3>
+    <table>
+      <tr><th>Кнопка</th><th>Что делает</th></tr>
+      <tr><td>📋 Requests</td><td>Просмотр и обработка заявок на вступление (одобрить / отклонить)</td></tr>
+      <tr><td>👥 Players</td><td>Список принятых игроков с пагинацией</td></tr>
+      <tr><td>➕ GM Character</td><td>Прикрепить своего персонажа к игре как мастер (без ограничения «один персонаж»)</td></tr>
+      <tr><td>👥 Player's characters</td><td>Посмотреть персонажей игроков</td></tr>
+      <tr><td>👑 GM's characters</td><td>Посмотреть персонажей мастера и автора игры</td></tr>
+      <tr><td>🚫 Delete player</td><td>Удалить игрока из игры (его персонаж тоже откреплятся)</td></tr>
+      <tr><td>❌ Delete character</td><td>Открепить любого персонажа от игры</td></tr>
+    </table>
+
+    <h3>Отправка приглашений</h3>
+    <p>Нажмите кнопку <strong>Invite</strong> в игровом меню. Выберите игру, укажите ID канала, куда хотите отправить приглашение, добавьте описание и обложку. Бот разместит сообщение с кнопкой «Принять» — любой желающий сможет подать заявку.</p>
+
+    <div class="warning">Вы можете отправить приглашение только в те каналы, в которых у вас есть права на отправку сообщений.</div>
+
+    <h3>Обработка заявок</h3>
+    <p>Когда игрок подаёт заявку, вам придёт личное сообщение от бота с уведомлением. Чтобы обработать заявки — откройте настройки игры и нажмите <strong>📋 Requests</strong>. Выберите игрока, затем — «✅ Одобрить» или «❌ Отклонить». Игрок получит уведомление в личных сообщениях.</p>
+
+    <div class="media-placeholder">
+      <span class="media-icon">🎬</span>
+      <strong>[ВИДЕО: Полный цикл — создание игры, отправка приглашения, одобрение заявки]</strong>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 11 — СЕССИИ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="sessions">
+    <div class="section-header">
+      <div class="section-icon">📅</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 11</span>
+        <h2>Сессии</h2>
+      </div>
+    </div>
+
+    <p>Сессия — это одно игровое мероприятие. Сессии создаются автоматически из Discord Scheduled Events (запланированных событий сервера) или вручную через команды персонала.</p>
+
+    <h3>Автоматическое создание сессии</h3>
+    <p>Когда кто-то создаёт запланированное событие в Discord, бот проверяет, совпадает ли название события с названием какой-либо игры. Если совпадение найдено — сессия создаётся автоматически и привязывается к нужной игре. В основной канал игры приходит уведомление.</p>
+
+    <div class="note">Совпадение по названию не обязательно должно быть точным — главное, чтобы название игры <em>содержалось</em> в названии события. Например, событие «D&D Эльфийский лес — сессия 7» найдёт игру с названием «D&D Эльфийский лес».</div>
+
+    <h3>Жизненный цикл сессии</h3>
+
+    <div class="card-grid" style="grid-template-columns: repeat(5,1fr); gap: 8px;">
+      <div class="mini-card">
+        <span class="mc-icon">📝</span>
+        <div class="mc-title">CREATED</div>
+        <div class="mc-text">Запланирована, ещё не началась</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">🎲</span>
+        <div class="mc-title">ACTIVE</div>
+        <div class="mc-text">Идёт прямо сейчас</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">✅</span>
+        <div class="mc-title">COMPLETED</div>
+        <div class="mc-text">Успешно завершена</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">❌</span>
+        <div class="mc-title">CANCELED</div>
+        <div class="mc-text">Отменена до начала</div>
+      </div>
+      <div class="mini-card">
+        <span class="mc-icon">⛔</span>
+        <div class="mc-title">INVALID</div>
+        <div class="mc-text">Помечена недействительной</div>
+      </div>
+    </div>
+
+    <div class="warning">В одной игре одновременно может быть только одна активная сессия. Нельзя запустить новую, пока предыдущая не завершена или не отменена.</div>
+
+    <h3>Нумерация сессий</h3>
+    <p>Каждая сессия получает порядковый номер автоматически. Отменённые и недействительные сессии <strong>не учитываются</strong> в нумерации — номера идут только по реально прошедшим и активным сессиям.</p>
+
+    <h3>Команды для персонала</h3>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/session link</div>
+      <p class="cmd-desc">Вручную привязать Discord-событие к существующей сессии. Используется если автоматическое определение по названию не сработало.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/session cancel</div>
+      <p class="cmd-desc">Отменить запланированную или активную сессию. Discord-событие тоже удалится. Временные роли восстанавливаются, ники участников возвращаются.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/session invalidate</div>
+      <p class="cmd-desc">Пометить сессию как недействительную. Используется для исправления ошибок. Все отзывы этой сессии автоматически мягко удаляются.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/session publish</div>
+      <p class="cmd-desc">Опубликовать карточки завершённых сессий в текущем канале. Можно указать диапазон номеров (from_session / to_session).</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/session info</div>
+      <p class="cmd-desc">Статистика сессий выбранной игры: общее количество, число завершённых, текущая активная и последняя действительная.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 12 — ОТМЕТКА ПРИСУТСТВИЯ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="attendance">
+    <div class="section-header">
+      <div class="section-icon">✅</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 12</span>
+        <h2>Отметка присутствия и старт сессии</h2>
+      </div>
+    </div>
+
+    <p>Когда Discord-событие переходит в статус «активное» (мастер нажал кнопку старта в Discord), бот автоматически запускает процедуру отметки присутствия. Это происходит в основном канале игры.</p>
+
+    <h3>Как проходит отметка</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Бот показывает имена принятых игроков по одному в основном канале игры.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">Только <strong>мастер игры</strong> (тот, чей Discord ID указан в настройках) может нажимать кнопки <strong>✅ Присутствует</strong> или <strong>❌ Отсутствует</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">После прохода по всем игрокам сессия официально стартует.</div>
+      </div>
+    </div>
+
+    <div class="warning">Если никого не отметить и просто дождаться таймаута (30 минут) — все оставшиеся игроки будут автоматически помечены как присутствующие. Это намеренное поведение: если мастер не успел отметить — лучше учесть всех, чем потерять отзывы.</div>
+
+    <div class="danger-box">Только мастер игры (чей Discord ID в настройках игры = gm_id) может делать отметку. Остальные кнопки нажать не смогут.</div>
+
+    <h3>Что происходит с никами и ролями</h3>
+    <p>При старте сессии бот автоматически:</p>
+    <ul style="margin: 10px 0 10px 24px; line-height: 2.1; color: var(--text);">
+      <li>Создаёт временную роль с названием игры и назначает её всем участникам и мастеру.</li>
+      <li>Переименовывает игроков в их имена персонажей (у кого есть привязанный персонаж).</li>
+      <li>Мастеру добавляет 👑 к нику.</li>
+    </ul>
+    <p>По окончании сессии всё возвращается обратно: ники восстанавливаются, временная роль удаляется.</p>
+
+    <div class="tip">Чтобы временные роли создавались на правильной позиции в иерархии сервера — настройте «якорь ролей» командой <code>/guild set_role_anchor</code>. Без этого роль создаётся без фиксированной позиции.</div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">🎬</span>
+      <strong>[ВИДЕО: Процесс отметки присутствия — взгляд мастера]</strong>
+    </div>
+
+    <h3>Особые сценарии</h3>
+    <table>
+      <tr><th>Ситуация</th><th>Что произойдёт</th></tr>
+      <tr><td>Нет основного канала игры</td><td>Сессия стартует сразу, все игроки считаются присутствующими</td></tr>
+      <tr><td>Нет принятых игроков с Discord ID</td><td>То же — старт без отметки</td></tr>
+      <tr><td>Нет мастера (gm_id не задан)</td><td>Все игроки автоматически присутствующие, старт без отметки</td></tr>
+      <tr><td>Уже есть активная сессия</td><td>Дубликат помечается INVALID, событие удаляется</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 13 — СТАТИСТИКА ОТЗЫВОВ (МАСТЕР)
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="gm-reviews">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 13</span>
+        <h2>Статистика и публикация отзывов</h2>
+      </div>
+    </div>
+
+    <p>После накопления отзывов персонал может просматривать статистику и публиковать отзывы в каналы сервера.</p>
+
+    <h3>Публикация отзывов сессии</h3>
+    <div class="cmd-card">
+      <div class="cmd-name">/review publish_session_public</div>
+      <p class="cmd-desc">Публикует все публичные отзывы выбранной сессии в текущий канал. Автор каждого отзыва будет отмечен упоминанием.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review publish_session_anon</div>
+      <p class="cmd-desc">То же самое, но только для анонимных отзывов — авторы не указываются.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review publish_game_public</div>
+      <p class="cmd-desc">Публикует все публичные отзывы по всем сессиям выбранной игры.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <h3>Команды статистики</h3>
+    <div class="cmd-card">
+      <div class="cmd-name">/review stats_npc</div>
+      <p class="cmd-desc">Топ НИП по числу упоминаний в отзывах выбранной игры. Имена сравниваются без учёта регистра.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review stats_scenes</div>
+      <p class="cmd-desc">Топ сцен: название сцены, её тип (комедия, хоррор, экшен, драма, романтика) и число упоминаний.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review stats_players</div>
+      <p class="cmd-desc">Топ игроков, которых чаще всего называли «лучшим игроком сессии».</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review stats_rating</div>
+      <p class="cmd-desc">Справедливая взвешенная оценка игры. Учитывает число уникальных авторов отзывов, охват сессий и среднюю оценку.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Пример опубликованного отзыва и карточки рейтинга]</strong>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 14 — РОЛИ АДМИНИСТРАТОРОВ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="admin-roles">
+    <div class="section-header">
+      <div class="section-icon">🛡️</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 14</span>
+        <h2>Управление ролями персонала</h2>
+      </div>
+    </div>
+
+    <p>Платформенные роли (Support, Moderator, Superadmin) назначаются через Discord-команды. Это отдельно от обычных ролей Discord-сервера.</p>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/user update_role @пользователь [роль]</div>
+      <p class="cmd-desc">Назначить или изменить платформенную роль пользователя. Доступные значения: <code>support</code>, <code>moderator</code>, <code>superadmin</code>. Чтобы снять роль — не выбирайте значение (оставьте пустым).</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/user view @пользователь</div>
+      <p class="cmd-desc">Просмотр профиля любого пользователя: логин, email, привязанные Discord-аккаунты, роль.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <div class="warning">Суперадмин может назначить роль суперадмина другому пользователю. Будьте осторожны — это даёт полный доступ к платформе.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 15 — ИГРОВЫЕ СИСТЕМЫ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="admin-game-systems">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 15</span>
+        <h2>Игровые системы</h2>
+      </div>
+    </div>
+
+    <p>Игровая система — это справочник правил: D&D 5e, Pathfinder, GURPS и т.д. Персонажи и игры привязываются к конкретной системе, чтобы гарантировать их совместимость.</p>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/game_system create [название] [описание]</div>
+      <p class="cmd-desc">Создать новую игровую систему. Название должно быть уникальным.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/game_system get_all</div>
+      <p class="cmd-desc">Показать все доступные игровые системы с пагинацией.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/game_system update [id] [название] [описание]</div>
+      <p class="cmd-desc">Изменить название или описание игровой системы.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/game_system delete [id]</div>
+      <p class="cmd-desc">Удалить игровую систему.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+
+    <div class="danger-box">Нельзя удалить игровую систему, если к ней привязаны персонажи или игры. Сначала нужно удалить или перепривязать все зависимые объекты.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 16 — МОДЕРАЦИЯ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="admin-moderation">
+    <div class="section-header">
+      <div class="section-icon">🔧</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 16</span>
+        <h2>Модерация игр и персонажей</h2>
+      </div>
+    </div>
+
+    <h3>Восстановление удалённых объектов</h3>
+    <div class="cmd-card">
+      <div class="cmd-name">/game restore @пользователь</div>
+      <p class="cmd-desc">Восстановить удалённую игру пользователя. Показывает список удалённых игр для выбора.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/character restore @пользователь</div>
+      <p class="cmd-desc">Восстановить удалённого персонажа пользователя.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review restore @пользователь</div>
+      <p class="cmd-desc">Восстановить мягко удалённый отзыв. Выбор из удалённых отзывов игрока.</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+
+    <h3>Жёсткое удаление (необратимо)</h3>
+    <div class="cmd-card">
+      <div class="cmd-name">/game delete @пользователь</div>
+      <p class="cmd-desc">Безвозвратно удалить игру из базы данных. Включая удалённые игры.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/character delete @пользователь</div>
+      <p class="cmd-desc">Безвозвратно удалить персонажа. Включая удалённых.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review soft_delete @пользователь</div>
+      <p class="cmd-desc">Мягко скрыть отзыв (с возможностью восстановления).</p>
+      <span class="cmd-access access-mod">Moderator+</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/review delete @пользователь</div>
+      <p class="cmd-desc">Безвозвратно удалить отзыв. Используется в крайних случаях.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+
+    <div class="danger-box">Жёсткое удаление необратимо. Данные не восстанавливаются. Всегда предпочитайте мягкое удаление.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 17 — НАСТРОЙКИ СЕРВЕРА
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="admin-guild">
+    <div class="section-header">
+      <div class="section-icon">🏠</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 17</span>
+        <h2>Настройки Discord-сервера</h2>
+      </div>
+    </div>
+
+    <p>Эти настройки влияют на поведение бота на конкретном сервере, не привязаны к отдельным играм.</p>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/guild set_role_anchor @роль</div>
+      <p class="cmd-desc">Установить «якорь» для временных ролей сессий. Временные роли будут создаваться сразу над указанной ролью в иерархии сервера.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/guild clear_role_anchor</div>
+      <p class="cmd-desc">Убрать якорь ролей. После этого временные роли создаются без фиксированной позиции.</p>
+      <span class="cmd-access access-admin">Superadmin</span>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/guild get_settings</div>
+      <p class="cmd-desc">Посмотреть текущие настройки сервера.</p>
+      <span class="cmd-access access-support">Support+</span>
+    </div>
+
+    <div class="tip">Якорь ролей удобно установить на роль «everyone» или специальную разделительную роль в середине иерархии, чтобы игровые роли не появлялись выше или ниже нужного места.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 18 — СПРАВОЧНИК КОМАНД
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="commands">
+    <div class="section-header">
+      <div class="section-icon">📚</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 18</span>
+        <h2>Полный справочник команд</h2>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Команда</th><th>Описание</th><th>Доступ</th></tr>
+      <tr><td><code>/me</code></td><td>Открыть свой профиль в личных сообщениях</td><td><span class="cmd-access access-all">Все</span></td></tr>
+      <tr><td><code>/character menu</code></td><td>Показать меню управления персонажами</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/character become</code></td><td>Надеть маску персонажа в чате</td><td><span class="cmd-access access-all">Все*</span></td></tr>
+      <tr><td><code>/character leave</code></td><td>Снять маску персонажа</td><td><span class="cmd-access access-all">Все</span></td></tr>
+      <tr><td><code>/character restore @user</code></td><td>Восстановить удалённого персонажа</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/character delete @user</code></td><td>Жёсткое удаление персонажа</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/game menu</code></td><td>Открыть игровое меню</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/game restore @user</code></td><td>Восстановить удалённую игру</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/game delete @user</code></td><td>Жёсткое удаление игры</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/game_system create</code></td><td>Создать игровую систему</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/game_system get_all</code></td><td>Список всех систем</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/game_system update</code></td><td>Изменить систему</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/game_system delete</code></td><td>Удалить систему</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/session link</code></td><td>Привязать событие к сессии вручную</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/session cancel</code></td><td>Отменить сессию</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/session invalidate</code></td><td>Инвалидировать сессию</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/session publish</code></td><td>Опубликовать сессии в канал</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/session info</code></td><td>Статистика сессий игры</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review soft_delete</code></td><td>Мягко удалить отзыв</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/review delete</code></td><td>Жёсткое удаление отзыва</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/review restore</code></td><td>Восстановить отзыв</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/review publish_session_public</code></td><td>Публикация публичных отзывов сессии</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review publish_session_anon</code></td><td>Публикация анонимных отзывов сессии</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/review publish_game_public</code></td><td>Публикация всех публичных отзывов игры</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review publish_game_anon</code></td><td>Публикация всех анонимных отзывов игры</td><td><span class="cmd-access access-mod">Mod+</span></td></tr>
+      <tr><td><code>/review stats_npc</code></td><td>Статистика НИП</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review stats_scenes</code></td><td>Статистика сцен</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review stats_players</code></td><td>Статистика игроков</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/review stats_rating</code></td><td>Взвешенная оценка игры</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/guild set_role_anchor</code></td><td>Установить якорь ролей</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/guild clear_role_anchor</code></td><td>Убрать якорь ролей</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/guild get_settings</code></td><td>Показать настройки сервера</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+      <tr><td><code>/user update_role</code></td><td>Изменить платформенную роль</td><td><span class="cmd-access access-admin">Admin</span></td></tr>
+      <tr><td><code>/user view</code></td><td>Профиль любого пользователя</td><td><span class="cmd-access access-support">Support+</span></td></tr>
+    </table>
+
+    <p style="margin-top:12px; color:var(--muted); font-size:15px; font-style:italic;">* — для /character become требуется регистрация на платформе</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 19 — ОГРАНИЧЕНИЯ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="limits">
+    <div class="section-header">
+      <div class="section-icon">🚧</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 19</span>
+        <h2>Ключевые ограничения и нюансы</h2>
+      </div>
+    </div>
+
+    <h3>Персонажи</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Игровую систему персонажа можно задать только один раз — потом не изменить.</li>
+      <li>В одну игру можно привязать только одного своего персонажа.</li>
+      <li>Система персонажа должна совпадать с системой игры.</li>
+      <li>Имя персонажа должно быть уникальным в рамках конкретной игры.</li>
+    </ul>
+
+    <h3>Игры</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Название игры должно быть уникальным в рамках вашего аккаунта.</li>
+      <li>При смене или сбросе мастера (gm_id) все персонажи старого мастера автоматически откреплятся от игры.</li>
+      <li>Удалённую игру можно восстановить — данные не теряются мгновенно.</li>
+    </ul>
+
+    <h3>Сессии</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Одновременно может быть только одна активная сессия на игру.</li>
+      <li>Нельзя завершить сессию, которая ещё не активна.</li>
+      <li>Отменённые и недействительные сессии не учитываются в нумерации.</li>
+      <li>Инвалидация сессии автоматически удаляет все её отзывы (мягко).</li>
+    </ul>
+
+    <h3>Отзывы</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Один игрок — один отзыв на сессию.</li>
+      <li>Отправленный отзыв нельзя редактировать.</li>
+      <li>Автор игры не может оставлять отзывы.</li>
+      <li>Окно на заполнение — 60 минут с момента получения приглашения.</li>
+      <li>Оценка и комментарий обязательны для отправки.</li>
+    </ul>
+
+    <h3>Регистрация и профиль</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Email и логин должны быть уникальными на всей платформе.</li>
+      <li>К одному профилю можно привязать максимум два Discord-аккаунта.</li>
+      <li>Смена пароля аннулирует все активные сессии — придётся войти заново.</li>
+    </ul>
+
+    <h3>Меню и кнопки</h3>
+    <ul style="margin: 12px 0 12px 24px; color: var(--text); line-height: 2.1;">
+      <li>Большинство меню с кнопками работают только 180 секунд (3 минуты) после открытия. После этого нужно заново нажать команду.</li>
+      <li>Форма отзыва работает без таймаута — ограничение только 60 минут у приглашения.</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       РАЗДЕЛ 20 — FAQ
+  ═══════════════════════════════════════════ -->
+  <section class="doc-section" id="faq">
+    <div class="section-header">
+      <div class="section-icon">❓</div>
+      <div>
+        <span class="section-num">РАЗДЕЛ 20</span>
+        <h2>Частые вопросы</h2>
+      </div>
+    </div>
+
+    <h4>Я не получаю уведомления от бота в личных сообщениях</h4>
+    <p>Убедитесь, что в настройках Discord разрешены личные сообщения от участников серверов. Это находится в разделе «Конфиденциальность и безопасность» настроек.</p>
+
+    <hr class="divider">
+
+    <h4>Я создал персонажа, но не могу привязать его к игре</h4>
+    <p>Проверьте: 1) ваша заявка одобрена (статус Accepted); 2) у персонажа задана игровая система; 3) система персонажа совпадает с системой игры. Если у персонажа нет игровой системы — его нельзя добавить в игру ни при каких условиях.</p>
+
+    <hr class="divider">
+
+    <h4>Моя сессия не создалась автоматически из Discord-события</h4>
+    <p>Бот ищет название игры внутри названия события. Если название игры не содержится в названии события — автоматического создания не будет. Используйте команду <code>/session link</code>, чтобы привязать событие вручную.</p>
+
+    <hr class="divider">
+
+    <h4>Временная роль/ник не вернулись после сессии</h4>
+    <p>Это может случиться, если у бота не было прав на изменение ника участника (например, у тех, кто выше бота в иерархии ролей). Попросите администратора сервера поднять роль бота выше.</p>
+
+    <hr class="divider">
+
+    <h4>Я случайно нажал «В другой раз» — могу ли я ещё оставить отзыв?</h4>
+    <p>Нет. Кнопка «В другой раз» отменяет ваш отзыв для данной сессии. Если приглашение ещё активно (не прошло 60 минут) — попробуйте снова нажать «✅ Оставить отзыв», и система откроет форму заново.</p>
+
+    <hr class="divider">
+
+    <h4>Почему оценка игры отличается от среднего арифметического?</h4>
+    <p>Платформа использует взвешенный алгоритм, который учитывает количество уникальных авторов отзывов. При малом числе участников оценка смещается к нейтральной — это защищает от ситуации, когда один недовольный игрок «уничтожает» рейтинг всей игры.</p>
+
+    <hr class="divider">
+
+    <h4>Как посмотреть ID пользователя/канала/роли в Discord?</h4>
+    <p>Включите «Режим разработчика» в настройках Discord (Внешний вид → Режим разработчика). После этого правый клик на любом пользователе, канале или роли покажет пункт «Копировать ID».</p>
+
+    <div class="media-placeholder">
+      <span class="media-icon">📸</span>
+      <strong>[СКРИНШОТ: Где находится «Режим разработчика» в настройках Discord]</strong>
+    </div>
+  </section>
+
+</main>
+
+<!-- BACK TO TOP -->
+<div id="back-top" title="Наверх">↑</div>
+
+<script>
+  // Progress bar
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // Back to top
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('.doc-section');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Search
+  const searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase().trim();
+    navLinks.forEach(link => {
+      const text = link.textContent.toLowerCase();
+      link.style.display = (!q || text.includes(q)) ? '' : 'none';
+    });
+    document.querySelectorAll('.nav-section').forEach(s => s.style.display = q ? 'none' : '');
+  });
+</script>
+</body>
+</html>
